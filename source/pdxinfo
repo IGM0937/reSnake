@@ -1,0 +1,7 @@
+name=reSnake
+author=TNMM
+description=Your classic snake with a timely twist!
+bundleID=com.tnmm.resnake
+version=1.0
+buildNumber=1
+imagePath=game/images/card.png
