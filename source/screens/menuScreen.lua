@@ -1,7 +1,7 @@
 --- Utility class used to control the game's menu screen.
 -- See DEV_NOTES on game screen file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -127,10 +127,10 @@ function MenuScreen.enter()
 
   local creditsLicence = gfx.sprite.new()
   creditsLicence.draw = function()
-    local text = "reSnake\n*v1.0*\n\n" ..
+    local text = "reSnake\n*v1.0.1*\n\n" ..
         "Created by\n*Igor Goran Macukat*\n\n" ..
         "Under the\n*GNU General Public License v3.0*\n\n" ..
-        "Copyright © 2022 TNMM"
+        "Copyright © 2022-2023 TNMM"
     gfx.drawTextAligned(text, 150, 0, kTextAlignment.center)
   end
   creditsLicence:setCenter(0.5, 0.5)

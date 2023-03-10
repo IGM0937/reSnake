@@ -1,7 +1,7 @@
 --- Manager and helper class for managing game states.
 -- See DEV_NOTES on manager file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ end
 -- table to remove the oldest state out.
 local function saveGameState()
   local state = {}
-  state[1] = input.last
+  state[1] = Input.last
   state[2] = FoodManager.saveGameState()
   state[3] = BodyManager.saveGameState()
   state[4] = UiManager.saveGameState()
@@ -99,7 +99,7 @@ local function loadGameState()
 
     local state = this.gameStateMap[this.currentStatePos]
 
-    input.next = state[1]
+    Input.next = state[1]
     FoodManager.loadGameState(state[2])
     BodyManager.loadGameState(state[3])
     UiManager.loadGameState(state[4])

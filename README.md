@@ -81,7 +81,7 @@ Please see [DEV_NOTES](DEV_NOTES.md) for developer commentary on making of the g
 
 ### Developer Group
 
-Copyright © 2022 TNMM
+Copyright © 2022-2023 TNMM
 
 ### Game and Game Images
 

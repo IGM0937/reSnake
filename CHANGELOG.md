@@ -22,6 +22,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [comment]: <> (## [Unreleased])
 
+## [v1.0.1] - 2023-03-09
+
+### Changed
+
+- A couple of variables from global to local.
+- Updated all files to latest year, due to new version.
+
+### Fixed
+
+- Changes made to related code where `sprite:copy()` is used, as it was not working correctly in SDK 1.13.2:
+    - Using `sprite.className` instead of `sprite:isa()` to detect sprite type. 
+    - Using custom snapshot functions to properly copy necessary sprite attributes.
+- Fixed typo for a global variable `Input`.
+
 ## [v1.0] - 2022-12-08
 
 ### Added

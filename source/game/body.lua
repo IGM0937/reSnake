@@ -1,6 +1,6 @@
 --- Playdate object to represent a body part of the snake.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by

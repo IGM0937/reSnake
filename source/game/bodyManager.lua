@@ -1,7 +1,7 @@
 --- Manager and helper class for managing the snake body.
 -- See DEV_NOTES on manager file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -53,17 +53,17 @@ end
 -- See DEV_NOTES on snake movement.
 function BodyManager.calcNextHeadPos()
   this.nextHeadX, this.nextHeadY = this.snakeBody[1]:getPosition()
-  if input.next == pd.kButtonUp then
-    input.last = pd.kButtonUp
+  if Input.next == pd.kButtonUp then
+    Input.last = pd.kButtonUp
     this.nextHeadY -= Arena.step()
-  elseif input.next == pd.kButtonRight then
-    input.last = pd.kButtonRight
+  elseif Input.next == pd.kButtonRight then
+    Input.last = pd.kButtonRight
     this.nextHeadX += Arena.step()
-  elseif input.next == pd.kButtonDown then
-    input.last = pd.kButtonDown
+  elseif Input.next == pd.kButtonDown then
+    Input.last = pd.kButtonDown
     this.nextHeadY += Arena.step()
-  elseif input.next == pd.kButtonLeft then
-    input.last = pd.kButtonLeft
+  elseif Input.next == pd.kButtonLeft then
+    Input.last = pd.kButtonLeft
     this.nextHeadX -= Arena.step()
   end
 
@@ -86,6 +86,13 @@ end
 -- 2b. If not, then revert the snake tail back to it's position and pause the game.
 -- 3. If games is paused, then alter the games states appropriatly, otherwise carry on.
 -- See DEV_NOTES on snake movement.
+-- 
+-- Additionally, a couple of fixes were introduced as part of v1.0.1, due to
+-- 'sprite:copy()' being broken in 1.13.2:
+-- 1. The "other" sprite comparison should be using "collision.other:isa(Food)", but
+-- class name is not being copied over correctly.
+-- 2. Copying of object attributes was also not working, so snapshot functionality
+-- and to be added to complete the full copy of the desired body object.
 function BodyManager.moveSnake()
   local prevTailX, prevTailY = this.snakeBody[#this.snakeBody]:getPosition()
   local collisions, count = nil, nil
@@ -101,7 +108,7 @@ function BodyManager.moveSnake()
 
   if count > 0 then
     for _, collision in ipairs(collisions) do
-      if collision.other:isa(Food) then
+      if collision.other.className == "Food" then
         -- food eaten, do the following
         FoodManager.moveFood()
         UiManager.updateScore()
@@ -110,14 +117,17 @@ function BodyManager.moveSnake()
         if UiManager.decGrowCount() == 0 then
           -- if it's time to grow snake body, grow a new tail
           UiManager.resetGrowCount()
-          local bodyPart = this.snakeBody[#this.snakeBody - 1]:copy()
-          bodyPart:setTailImage()
-          table.insert(this.snakeBody, #this.snakeBody - 1, bodyPart)
+          local bodyPart = this.snakeBody[#this.snakeBody - 1]
+          local bodyPartSnapshot = bodyPart:saveSnapshot()
+          local copyBodyPart = bodyPart:copy()
+          copyBodyPart:loadSnapshot(bodyPartSnapshot)
+          copyBodyPart:setTailImage()
+          table.insert(this.snakeBody, #this.snakeBody - 1, copyBodyPart)
           SoundManager.bodySizeIncrease(false, UiManager.getMultiplier())
         else
           SoundManager.eatFood(false, UiManager.getMultiplier())
         end
-      elseif collision.other:isa(Body) then
+      elseif collision.other.className == "Body" then
         -- body hit, revert snake positions and pause the game
         this.snakeBody[#this.snakeBody]:setCollisionsEnabled(false)
         this.snakeBody[#this.snakeBody]:moveTo(prevTailX, prevTailY)
@@ -151,14 +161,14 @@ function BodyManager.moveSnake()
     table.insert(this.snakeBody, 1, bodyPart)
 
     -- is food near by
-    nearBy = FoodManager.isNearBy(this.snakeBody[1]:getPosition())
+    local nearBy = FoodManager.isNearBy(this.snakeBody[1]:getPosition())
 
     -- set a new image for head
-    this.snakeBody[1]:setHeadImage(input.last, nearBy)
+    this.snakeBody[1]:setHeadImage(Input.last, nearBy)
 
     -- set a new image for neck
-    torsoDirection = this.snakeBody[3].direction
-    headDirection = this.snakeBody[1].direction
+    local torsoDirection = this.snakeBody[3].direction
+    local headDirection = this.snakeBody[1].direction
     this.snakeBody[2]:setTorsoNeckImage(torsoDirection, headDirection)
 
     -- set a new image for tail
@@ -282,7 +292,7 @@ function BodyManager.newGame()
     end
 
     local x = headStartX - (Arena.step() * i)
-    this.snakeBody[i] = Body(x, headStartY, input.last, image)
+    this.snakeBody[i] = Body(x, headStartY, Input.last, image)
   end
 
   BodyManager.stopHitBlinker()

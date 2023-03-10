@@ -1,7 +1,7 @@
 --- Utility class used to control the game's game screen.
 -- See DEV_NOTES on game screen file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ GameScreen = {}
 GameScreen.name = "screen.game"
 GameScreen.isGameRunning = nil
 GameScreen.finalScore = nil
-input = {
+Input = {
   next = nil,
   last = nil
 }
@@ -55,7 +55,7 @@ end
 -- times without having to recreate basic game elements
 -- such as timers, image tables, sounds and so on.
 local function startNewGame()
-  input = {
+  Input = {
     next = pd.kButtonRight,
     last = pd.kButtonRight
   }
@@ -78,8 +78,8 @@ end
 -- @return boolean result showing if the input state is valid
 local function validStateAndFilterInput(input1, input2)
   return not StateManager.isPaused()
-      and input.last ~= input1
-      and input.last ~= input2
+      and Input.last ~= input1
+      and Input.last ~= input2
 end
 
 --- Inputs used for this game's game screen.
@@ -89,25 +89,25 @@ end
 local gameInputHandlers = {
   upButtonDown = function()
     if validStateAndFilterInput(pd.kButtonDown, pd.kButtonUp) then
-      input.next = pd.kButtonUp
+      Input.next = pd.kButtonUp
       StateManager.update(nil, true)
     end
   end,
   rightButtonDown = function()
     if validStateAndFilterInput(pd.kButtonLeft, pd.kButtonRight) then
-      input.next = pd.kButtonRight
+      Input.next = pd.kButtonRight
       StateManager.update(nil, true)
     end
   end,
   downButtonDown = function()
     if validStateAndFilterInput(pd.kButtonUp, pd.kButtonDown) then
-      input.next = pd.kButtonDown
+      Input.next = pd.kButtonDown
       StateManager.update(nil, true)
     end
   end,
   leftButtonDown = function()
     if validStateAndFilterInput(pd.kButtonRight, pd.kButtonLeft) then
-      input.next = pd.kButtonLeft
+      Input.next = pd.kButtonLeft
       StateManager.update(nil, true)
     end
   end,

@@ -1,7 +1,7 @@
 --- Utility class used to control the game's tutorial screen.
 -- See DEV_NOTES on game screen file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ local function initLocalDefaults()
   this.panelList = {}
 end
 
-function createCommonComponents()
+local function createCommonComponents()
   this.titleText = gfx.sprite.new()
   this.titleText.draw = function()
     gfx.drawText("*Tutorial*", 0, 0)

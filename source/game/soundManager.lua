@@ -1,7 +1,7 @@
 --- Manager and helper class for managing game sound.
 -- See DEV_NOTES on manager file make up.
 --
--- reSnake - Copyright (C) 2022 - TNMM
+-- reSnake - Copyright (C) 2022-2023 - TNMM
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
