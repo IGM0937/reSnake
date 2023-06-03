@@ -127,7 +127,7 @@ function MenuScreen.enter()
 
   local creditsLicence = gfx.sprite.new()
   creditsLicence.draw = function()
-    local text = "reSnake\n*v1.0.1*\n\n" ..
+    local text = "reSnake\n*v1.0.2*\n\n" ..
         "Created by\n*Igor Goran Macukat*\n\n" ..
         "Under the\n*GNU General Public License v3.0*\n\n" ..
         "Copyright © 2022-2023 TNMM"

@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [comment]: <> (## [Unreleased])
 
+## [v1.0.2] - 2023-06-03
+
+### Added
+
+- New list view static icon for Playdate OS 2.0
+
 ## [v1.0.1] - 2023-03-09
 
 ### Changed
